@@ -6,12 +6,12 @@
  * @flow strict-local
  */
 import './shim.js';
-import crypto from 'crypto';
+import 'crypto';
+
 import 'node-libs-react-native/globals';
 import './globals.js';
 
 import React, {useEffect} from 'react';
-import Web3 from 'web3';
 
 import {
   SafeAreaView,
@@ -29,23 +29,27 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import createClient from './chain/client.js';
 
 const App: () => React$Node = () => {
   useEffect(() => {
-    const web3 = new Web3(
-      'wss://mainnet.infura.io/ws/v3/53bcde36e0404a6da87b71e780783f79',
+    const clients = createClient(
+      'testnet',
+      'oval group game ghost tag unfold situate soccer donor toward asset accuse',
     );
-    web3.eth
-      .getBlock('latest')
-      .then(console.log)
-      .catch(console.log);
-    web3.eth.getAccounts(function(error, res) {
-      if (!error) {
-        console.log(res);
-      } else {
-        console.log(error);
+
+    (async () => {
+      try {
+        const addresses = await clients.BTC.wallet.getUsedAddresses();
+        const balance = (await clients.BTC.chain.getBalance(
+          addresses,
+        )).toNumber();
+
+        console.log(balance);
+      } catch (e) {
+        console.log(e);
       }
-    });
+    })();
   }, []);
 
   return (
