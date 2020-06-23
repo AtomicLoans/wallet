@@ -22,7 +22,7 @@ import BitcoinNetworks from '@liquality/bitcoin-networks';
 import EthereumNetworks from '@liquality/ethereum-networks';
 
 import Web3 from 'web3';
-// import { generateAddressesFromSeed } from '../utils'
+import {generateAddressesFromSeed} from '../utils';
 
 const rpc = {
   BTC: {
@@ -213,14 +213,14 @@ const createClient = (network, mnemonic) => {
         if (cachedWeb3) {
           client.web3 = cachedWeb3Instances[network];
         } else {
-          // const web3 = new Web3(
-          //   new Web3.providers.HttpProvider(...rpc[asset][NetworkArgs[asset]]),
-          // );
-          // const {privateKey} = generateAddressesFromSeed(mnemonic);
-          // const account = web3.eth.accounts.privateKeyToAccount(privateKey);
-          // web3.eth.accounts.wallet.add(account);
-          // client.web3 = web3;
-          // cachedWeb3Instances[network] = web3;
+          const web3 = new Web3(
+            new Web3.providers.HttpProvider(...rpc[asset][NetworkArgs[asset]]),
+          );
+          const {privateKey} = generateAddressesFromSeed(mnemonic);
+          const account = web3.eth.accounts.privateKeyToAccount(privateKey);
+          web3.eth.accounts.wallet.add(account);
+          client.web3 = web3;
+          cachedWeb3Instances[network] = web3;
         }
       }
 

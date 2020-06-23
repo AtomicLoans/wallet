@@ -45,6 +45,11 @@ const App: () => React$Node = () => {
           addresses,
         )).toNumber();
 
+        clients.ETH.web3.eth
+          .getBlock('latest')
+          .then(console.log)
+          .catch(console.log);
+
         console.log(balance);
       } catch (e) {
         console.log(e);
