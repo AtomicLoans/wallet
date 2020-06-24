@@ -1,0 +1,1 @@
+export {BitcoinLock} from './BitcoinLock';
