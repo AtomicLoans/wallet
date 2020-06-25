@@ -249,6 +249,8 @@ PODS:
     - ReactCommon/callinvoker (= 0.62.2)
   - RNCAsyncStorage (1.11.0):
     - React
+  - RNKeychain (6.1.1):
+    - React
   - RNOS (1.2.6):
     - React
   - RNSVG (12.1.0):
@@ -289,6 +291,7 @@ DEPENDENCIES:
   - ReactCommon/callinvoker (from `../node_modules/react-native/ReactCommon`)
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
+  - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNOS (from `../node_modules/react-native-os`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - TcpSockets (from `../node_modules/react-native-tcp`)
@@ -355,6 +358,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-community/async-storage"
+  RNKeychain:
+    :path: "../node_modules/react-native-keychain"
   RNOS:
     :path: "../node_modules/react-native-os"
   RNSVG:
@@ -394,6 +399,7 @@ SPEC CHECKSUMS:
   React-RCTVibration: 4356114dbcba4ce66991096e51a66e61eda51256
   ReactCommon: ed4e11d27609d571e7eee8b65548efc191116eb3
   RNCAsyncStorage: db711e29e5e0500d9bd21aa0c2e397efa45302b1
+  RNKeychain: db956c02a018f7dd3a0ea8a6cf3087bc1894bf2b
   RNOS: 6f2f9a70895bbbfbdad7196abd952e7b01d45027
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
   TcpSockets: 8d839b9b14f6f344d98e4642ded13ab3112b462d

@@ -26,12 +26,12 @@ const App = () => {
   const [mnemonic, setMnemonic] = useState(null);
 
   useEffect(() => {
-    const clients = createClient(
-      'testnet',
-      'oval group game ghost tag unfold situate soccer donor toward asset accuse',
-    );
-
     (async () => {
+      return;
+      const clients = createClient(
+        'testnet',
+        'oval group game ghost tag unfold situate soccer donor toward asset accuse',
+      );
       try {
         const addresses = await clients.BTC.wallet.getUsedAddresses();
         const balance = (await clients.BTC.chain.getBalance(

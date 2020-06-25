@@ -5,10 +5,12 @@ import {useSelector} from 'react-redux';
 import SeedPhrase from '../../pages/SeedPhrase';
 import {animate} from '../../style/animation';
 import useDidMountEffect from '../../hooks/useDidMountEffect';
+import Home from '../../pages/Home';
 
 const PAGES = {
   ONBOARDING: Onboarding,
   SEED_PHRASE: SeedPhrase,
+  HOME: Home,
 };
 
 const AppRouter = () => {

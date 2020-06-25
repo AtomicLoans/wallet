@@ -1,9 +1,10 @@
 import {combineReducers} from 'redux';
 import navigation from './navigation';
 import wallet from './wallet';
+import encrypted from './encrypted';
 
 export default function createRootReducer() {
-  return combineReducers({navigation, wallet});
+  return combineReducers({navigation, wallet, encrypted});
 }
 
 /**

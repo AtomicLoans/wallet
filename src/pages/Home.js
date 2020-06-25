@@ -7,40 +7,37 @@ import AppLayout from '../components/AppLayout/AppLayout';
 import {BottomContainer, TopContainer} from '../components/Page';
 import SeedPhraseTable from '../components/SeedPhraseTable';
 import commonStyles from '../style/common';
+import AssetButton from '../components/AssetButton';
 
-const SeedPhraseTopContainer = () => {
+const HomeTopContainer = () => {
   return (
     <TopContainer>
       <View>
-        <Text style={commonStyles.mainTitle}>Backup your seed phrase</Text>
+        <Text style={commonStyles.mainTitle}>Welcome!</Text>
       </View>
     </TopContainer>
   );
 };
 
-const SeedPhraseBottomContainer = () => {
+const HomeBottomContainer = () => {
   const dispatch = useDispatch();
   const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
 
-  const handleContinue = () => {
-    dispatch(updatePage('HOME'));
-  };
-
-  const handleBack = () => {
+  const handlePress = () => {
     dispatch(updatePage('ONBOARDING'));
   };
 
   return (
     <BottomContainer>
-      <SeedPhraseTable mnemonic={mnemonic} />
+      <AssetButton />
       <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
         <Button
           appearance="outline"
           style={{marginTop: 8, flex: 0.45}}
-          onPress={handleBack}>
+          onPress={handlePress}>
           Back
         </Button>
-        <Button style={{marginTop: 8, flex: 0.45}} onPress={handleContinue}>
+        <Button style={{marginTop: 8, flex: 0.45}} onPress={handlePress}>
           Continue
         </Button>
       </View>
@@ -48,13 +45,13 @@ const SeedPhraseBottomContainer = () => {
   );
 };
 
-const SeedPhrase = () => {
+const Home = () => {
   return (
     <AppLayout>
-      <SeedPhraseTopContainer />
-      <SeedPhraseBottomContainer />
+      <HomeTopContainer />
+      <HomeBottomContainer />
     </AppLayout>
   );
 };
 
-export default SeedPhrase;
+export default Home;

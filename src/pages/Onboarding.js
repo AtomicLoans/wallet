@@ -1,32 +1,36 @@
-import React from 'react';
-import AppLayout from '../components/AppLayout/AppLayout';
-import Page, {TopContainer, BottomContainer} from '../components/Page';
+import {Button, Text} from '@ui-kitten/components';
+import React, {useState} from 'react';
 import {View} from 'react-native';
-import {Text, Button} from '@ui-kitten/components';
-import commonStyles from '../style/common';
-import BitcoinLock from '../components/BitcoinLock/BitcoinLock';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
+import {getMnemonic} from '../actions/encrypted';
 import {updatePage} from '../actions/navigation';
-import {animate} from '../style/animation';
-
-import {generateMnemonic} from 'bip39';
-import {updateMnemonic} from '../actions/wallet';
+import AppLayout from '../components/AppLayout/AppLayout';
+import BitcoinLock from '../components/BitcoinLock/BitcoinLock';
+import {BottomContainer, TopContainer} from '../components/Page';
+import commonStyles from '../style/common';
 
 const OnboardingBottomContainer = () => {
   const dispatch = useDispatch();
-  const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
+  const [loading, setLoading] = useState(false);
 
   const handlePress = async () => {
-    console.log('pressed');
-    dispatch(updatePage('SEED_PHRASE'));
-    if (!mnemonic) {
-      dispatch(updateMnemonic(generateMnemonic()));
-    }
+    setLoading(true);
+
+    await dispatch(getMnemonic())
+      .then(() => {
+        dispatch(updatePage('SEED_PHRASE'));
+      })
+      .catch(e => {
+        console.warn('Failed');
+        setLoading(false);
+      });
   };
 
   return (
     <BottomContainer>
-      <Button onPress={handlePress}>Get Started</Button>
+      <Button disabled={loading} onPress={handlePress}>
+        Get Started
+      </Button>
       <Text style={{textAlign: 'center', marginTop: 16}}>
         Restore seed phrase
       </Text>
