@@ -1,1 +1,1 @@
-export {BitcoinLock} from './BitcoinLock';
+export {default} from './BitcoinLock';
