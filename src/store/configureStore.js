@@ -8,7 +8,7 @@ const persistConfig = {
   blacklist: ['navigation', 'wallet'],
 };
 
-import createRootReducer from '../reducers';
+import createRootReducer from './reducer';
 import thunkWithGetters from '../middlewares/thunkWithGetters';
 
 const rootReducer = createRootReducer();

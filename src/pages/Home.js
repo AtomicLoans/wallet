@@ -1,13 +1,15 @@
 import {Button, Text} from '@ui-kitten/components';
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {updatePage} from '../actions/navigation';
+import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
 import {BottomContainer, TopContainer} from '../components/Page';
 import SeedPhraseTable from '../components/SeedPhraseTable';
 import commonStyles from '../style/common';
 import AssetButton from '../components/AssetButton';
+import useGetters from '../hooks/useGetters';
+import {updateBalances} from '../store/balances/actions';
 
 const HomeTopContainer = () => {
   return (
@@ -21,11 +23,18 @@ const HomeTopContainer = () => {
 
 const HomeBottomContainer = () => {
   const dispatch = useDispatch();
-  const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
+  const getters = useGetters();
+
+  const balance = useSelector(state => state.balances.ETH);
 
   const handlePress = () => {
     dispatch(updatePage('ONBOARDING'));
   };
+
+  useEffect(() => {
+    console.log('updating balance');
+    dispatch(updateBalances()).then(s => console.log(s));
+  }, [dispatch]);
 
   return (
     <BottomContainer>
@@ -35,7 +44,7 @@ const HomeBottomContainer = () => {
           appearance="outline"
           style={{marginTop: 8, flex: 0.45}}
           onPress={handlePress}>
-          Back
+          Back {balance}
         </Button>
         <Button style={{marginTop: 8, flex: 0.45}} onPress={handlePress}>
           Continue

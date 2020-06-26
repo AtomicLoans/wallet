@@ -1,4 +1,4 @@
-import {getReducerFunction} from '..';
+import {getReducerFunction} from '../getReducerFunction';
 
 const initialState = {
   mnemonic: '',

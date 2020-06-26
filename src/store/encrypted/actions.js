@@ -1,6 +1,6 @@
 import * as Keychain from 'react-native-keychain';
 import {generateMnemonic} from 'bip39';
-import {updateMnemonic} from '../wallet';
+import {updateMnemonic} from '../wallet/actions';
 
 const AUTH_OPTIONS = {
   accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY_OR_DEVICE_PASSCODE,

@@ -2,7 +2,7 @@ import {Button, Text} from '@ui-kitten/components';
 import React from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {updatePage} from '../actions/navigation';
+import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
 import {BottomContainer, TopContainer} from '../components/Page';
 import SeedPhraseTable from '../components/SeedPhraseTable';
