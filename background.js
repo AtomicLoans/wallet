@@ -2,10 +2,10 @@ import {self} from 'react-native-threads';
 import 'node-libs-react-native/globals';
 import 'crypto';
 
-import '../globals.js';
-import '../shim.js';
-import {store} from '../store/createBackgroundStore.js';
-import actions from '../store/actions.js';
+import './src/globals.js';
+import './src/shim.js';
+import {store} from './src/store/createBackgroundStore.js';
+import actions from './src/store/actions.js';
 import {persistStore} from 'redux-persist';
 
 const postMessage = (id, payload) => {

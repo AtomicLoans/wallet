@@ -1,7 +1,7 @@
 import {Thread} from 'react-native-threads';
 import EventEmitter from 'events';
 
-const thread = new Thread('src/broker/background.js');
+const thread = new Thread('background.js');
 const bgEmitter = new EventEmitter();
 
 thread.onmessage = msg => {
