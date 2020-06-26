@@ -24,14 +24,7 @@ const SeedPhraseBottomContainer = () => {
   const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
 
   const handleContinue = () => {
-    dispatch({
-      action: 'updatePage',
-      payload: {page: 'HOME', pageProps: {firstLoad: true}},
-    });
-  };
-
-  const handleBack = () => {
-    dispatch({action: 'updatePage', payload: {page: 'ONBOARDING'}});
+    dispatch(updatePage({page: 'HOME', pageProps: {firstLoad: true}}));
   };
 
   return (

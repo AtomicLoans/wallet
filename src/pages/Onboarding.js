@@ -23,9 +23,9 @@ const OnboardingBottomContainer = () => {
     await dispatch({action: 'getMnemonic'})
       .then(() => {
         if (hasEncryptedWallet) {
-          dispatch({action: 'updatePage', payload: {page: 'HOME'}});
+          dispatch(updatePage({page: 'HOME', pageProps: {firstLoad: true}}));
         } else {
-          dispatch({action: 'updatePage', payload: {page: 'SEED_PHRASE'}});
+          dispatch(updatePage({page: 'SEED_PHRASE'}));
         }
       })
       .catch(e => {

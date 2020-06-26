@@ -6,6 +6,7 @@ import Logo from '../Logo/Logo';
 import colors from '../../style/colors';
 import {Button, Icon} from '@ui-kitten/components';
 import {useDispatch, useSelector} from 'react-redux';
+import {updatePage} from '../../store/navigation/actions';
 
 const AppLayout = ({children}) => {
   let topContainer, bottomContainer;
@@ -29,12 +30,7 @@ const AppLayout = ({children}) => {
               <Button
                 appearance="outline"
                 size="small"
-                onPress={() =>
-                  dispatch({
-                    action: 'updatePage',
-                    payload: {page: 'SEED_PHRASE'},
-                  })
-                }
+                onPress={() => dispatch(updatePage({page: 'SEED_PHRASE'}))}
                 style={{marginLeft: 20}}
                 accessoryLeft={props => (
                   <Icon {...props} name="shield-outline" />
@@ -68,6 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     left: 0,
+    zIndex: -1,
     right: 0,
     flex: 1,
   },

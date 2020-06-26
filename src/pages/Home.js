@@ -46,10 +46,7 @@ const HomeBottomContainer = ({firstLoad}) => {
   const [updated, setUpdated] = useState(false);
 
   const handlePress = asset => {
-    dispatch({
-      action: 'updatePage',
-      payload: {page: 'ASSET', pageProps: {asset}},
-    });
+    dispatch(updatePage({page: 'ASSET', pageProps: {asset}}));
   };
 
   useEffect(() => {

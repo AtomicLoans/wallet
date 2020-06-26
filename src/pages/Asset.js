@@ -33,11 +33,11 @@ const AssetBottomContainer = ({asset}) => {
   const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
 
   const handleContinue = () => {
-    dispatch({action: 'updatePage', payload: {page: 'HOME'}});
+    dispatch(updatePage({page: 'HOME'}));
   };
 
   const handleBack = () => {
-    dispatch({action: 'updatePage', payload: {page: 'HOME'}});
+    dispatch(updatePage({page: 'HOME'}));
   };
 
   return (
@@ -48,10 +48,7 @@ const AssetBottomContainer = ({asset}) => {
           style={styles.actionButton}
           size="small"
           onPress={() =>
-            dispatch({
-              action: 'updatePage',
-              payload: {page: 'DEPOSIT', pageProps: {asset}},
-            })
+            dispatch(updatePage({page: 'DEPOSIT', pageProps: {asset}}))
           }>
           Deposit
         </Button>

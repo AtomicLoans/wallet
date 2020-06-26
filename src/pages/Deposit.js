@@ -102,10 +102,7 @@ const DepositBottomContainer = ({asset}) => {
   const dispatch = useDispatch();
 
   const handleBack = () => {
-    dispatch({
-      action: 'updatePage',
-      payload: {page: 'ASSET', pageProps: {asset}},
-    });
+    dispatch(updatePage({page: 'ASSET', pageProps: {asset}}));
   };
 
   const address = useSelector(
