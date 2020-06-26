@@ -16,9 +16,9 @@ const OnboardingBottomContainer = () => {
   const handlePress = async () => {
     setLoading(true);
 
-    await dispatch(getMnemonic())
+    await dispatch({action: 'getMnemonic'})
       .then(() => {
-        dispatch(updatePage('SEED_PHRASE'));
+        dispatch({action: 'updatePage', payload: {page: 'SEED_PHRASE'}});
       })
       .catch(e => {
         console.warn('Failed');

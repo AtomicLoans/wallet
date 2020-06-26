@@ -255,6 +255,8 @@ PODS:
     - React
   - RNSVG (12.1.0):
     - React
+  - RNThread (0.0.19):
+    - React
   - TcpSockets (3.3.2):
     - React
   - Yoga (1.14.0)
@@ -294,6 +296,7 @@ DEPENDENCIES:
   - RNKeychain (from `../node_modules/react-native-keychain`)
   - RNOS (from `../node_modules/react-native-os`)
   - RNSVG (from `../node_modules/react-native-svg`)
+  - RNThread (from `../node_modules/react-native-threads/ios`)
   - TcpSockets (from `../node_modules/react-native-tcp`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -364,6 +367,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-os"
   RNSVG:
     :path: "../node_modules/react-native-svg"
+  RNThread:
+    :path: "../node_modules/react-native-threads/ios"
   TcpSockets:
     :path: "../node_modules/react-native-tcp"
   Yoga:
@@ -402,6 +407,7 @@ SPEC CHECKSUMS:
   RNKeychain: db956c02a018f7dd3a0ea8a6cf3087bc1894bf2b
   RNOS: 6f2f9a70895bbbfbdad7196abd952e7b01d45027
   RNSVG: ce9d996113475209013317e48b05c21ee988d42e
+  RNThread: bb5ef8bc1ec52f1d1a9c8dc1ce78f6b1bcdf892a
   TcpSockets: 8d839b9b14f6f344d98e4642ded13ab3112b462d
   Yoga: 3ebccbdd559724312790e7742142d062476b698e
 

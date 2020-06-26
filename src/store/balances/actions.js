@@ -14,9 +14,7 @@ export function updateBalances() {
         const addresses = await client.wallet.getUsedAddresses();
         const balance = (await client.chain.getBalance(addresses)).toNumber();
 
-        dispatch(updateBalance(asset, balance));
-
-        return {asset, balance};
+        return dispatch(updateBalance(asset, balance));
       }),
     );
   };

@@ -17,9 +17,10 @@ import colors from './style/colors';
 import theme from './style/theme';
 import {PersistGate} from 'redux-persist/integration/react';
 
-import {store, persistor} from './store/configureStore';
 import {Provider} from 'react-redux';
 import AppRouter from './components/AppRouter/AppRouter';
+import {store} from './store/configureStore';
+import LoadedGate from './components/LoadedGate';
 
 const App = () => {
   const [height, setHeight] = useState(200);
@@ -69,11 +70,13 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <ApplicationProvider {...eva} theme={{...eva.dark, ...theme}}>
+      <ApplicationProvider {...eva} theme={{...eva.dark, ...theme}}>
+        <LoadedGate>
           <AppRouter />
-        </ApplicationProvider>
-      </PersistGate>
+        </LoadedGate>
+      </ApplicationProvider>
+
+      {/* </PersistGate> */}
     </Provider>
   );
 };

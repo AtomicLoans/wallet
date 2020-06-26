@@ -7,6 +7,7 @@ import AppLayout from '../components/AppLayout/AppLayout';
 import {BottomContainer, TopContainer} from '../components/Page';
 import SeedPhraseTable from '../components/SeedPhraseTable';
 import commonStyles from '../style/common';
+import {updateAnimating} from '../store/animating/actions';
 
 const SeedPhraseTopContainer = () => {
   return (
@@ -23,11 +24,11 @@ const SeedPhraseBottomContainer = () => {
   const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
 
   const handleContinue = () => {
-    dispatch(updatePage('HOME'));
+    dispatch({action: 'updatePage', payload: {page: 'HOME'}});
   };
 
   const handleBack = () => {
-    dispatch(updatePage('ONBOARDING'));
+    dispatch({action: 'updatePage', payload: {page: 'ONBOARDING'}});
   };
 
   return (

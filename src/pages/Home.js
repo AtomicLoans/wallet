@@ -1,6 +1,6 @@
-import {Button, Text} from '@ui-kitten/components';
+import {Button, Text, Spinner} from '@ui-kitten/components';
 import React, {useEffect, useState} from 'react';
-import {View, InteractionManager} from 'react-native';
+import {View, InteractionManager, Animated} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
@@ -11,12 +11,22 @@ import AssetButton from '../components/AssetButton';
 import useGetters from '../hooks/useGetters';
 import {updateBalances} from '../store/balances/actions';
 import useMount from '../hooks/useMount';
+import {updateLoading} from '../store/loading/actions';
+import {animate} from '../style/animation';
 
 const HomeTopContainer = () => {
+  const loading = useSelector(state => state.loading);
+
+  animate();
+
   return (
     <TopContainer>
       <View>
-        <Text style={commonStyles.mainTitle}>Welcome!</Text>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <Text style={commonStyles.mainTitle}>Welcome!</Text>
+        )}
       </View>
     </TopContainer>
   );
@@ -27,19 +37,25 @@ const HomeBottomContainer = () => {
   const getters = useGetters();
 
   const balance = useSelector(state => state.balances.ETH);
-  const animating = useSelector(state => state.animating);
+  const loading = useSelector(state => state.loading);
+
   const [updated, setUpdated] = useState(false);
 
   const handlePress = () => {
-    dispatch(updatePage('ONBOARDING'));
+    dispatch({action: 'updatePage', payload: {page: 'ONBOARDING'}});
   };
 
   useEffect(() => {
-    if (!animating && !updated) {
-      dispatch(updateBalances());
-      setUpdated(true);
+    if (!updated) {
+      (async () => {
+        dispatch(updateLoading(true));
+        console.log('Dispatching update balances');
+
+        await dispatch({action: 'updateBalances'});
+        dispatch(updateLoading(false));
+      })();
     }
-  }, [dispatch, animating, updated]);
+  }, [dispatch, updated]);
 
   return (
     <BottomContainer>

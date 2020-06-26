@@ -2,20 +2,46 @@ import {createStore, applyMiddleware} from 'redux';
 import {persistStore, persistReducer} from 'redux-persist';
 import AsyncStorage from '@react-native-community/async-storage';
 
+import createRootReducer, {createRehydrateReducer} from './reducer';
+import thunkWithGetters from '../middlewares/thunkWithGetters';
+import sendToBackground from '../middlewares/sendToBackground';
+import {postMessage, bgEmitter} from '../broker/foreground';
+
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   blacklist: ['navigation', 'wallet'],
 };
 
-import createRootReducer from './reducer';
-import thunkWithGetters from '../middlewares/thunkWithGetters';
+const store = createStore((state, action) => {
+  if (!state) return {};
+  return {...action.newStore, initialized: true};
+}, applyMiddleware(sendToBackground));
 
-const rootReducer = createRootReducer();
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+// store.dispatch('test');
+const rehydrateStore = () => {
+  const id = `${Date.now()}.${Math.random()}`;
 
-const store = createStore(persistedReducer, applyMiddleware(thunkWithGetters));
+  bgEmitter.once(id, newStore => {
+    store.dispatch({type: 'REHYDRATE', newStore}).then(() => {
+      console.log('CHANGINg REDUCER');
+      console.log(store.getState());
+      store.replaceReducer(createRootReducer());
+    });
+  });
+
+  postMessage({
+    id,
+    type: 'REHYDRATE_STATE',
+  });
+};
+
+rehydrateStore();
+
+export {store};
 store.subscribe(() => console.log('dispatched', store.getState()));
-const persistor = persistStore(store);
-
-export {store, persistor};
+// setTimeout(() => {
+//   console.log('DISPATCHING');
+//   store.dispatch({type: 'LOL'});
+// }, 5000);
+// export {store, persistor};

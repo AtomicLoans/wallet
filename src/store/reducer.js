@@ -5,6 +5,8 @@ import encrypted from './encrypted/reducers';
 import balances from './balances/reducers';
 import network from './network/reducers';
 import animating from './animating/reducers';
+import initialized from './initialized/reducers';
+import loading from './loading/reducers';
 
 export default function createRootReducer() {
   return combineReducers({
@@ -14,5 +16,15 @@ export default function createRootReducer() {
     balances,
     network,
     animating,
+    initialized,
+    loading,
   });
+}
+
+export function createRehydrateReducer() {
+  return state => {
+    console.log('YO', state);
+    if (!state) return {};
+    return state;
+  };
 }
