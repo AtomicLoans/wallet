@@ -6,8 +6,7 @@ import '../globals.js';
 import '../shim.js';
 import {store} from '../store/createBackgroundStore.js';
 import actions from '../store/actions.js';
-// import {buildStore} from '../store/configureStore.js';
-// const store = buildStore(true);
+import {persistStore} from 'redux-persist';
 
 const postMessage = (id, payload) => {
   self.postMessage(JSON.stringify({id, payload}));
@@ -25,13 +24,17 @@ self.onmessage = async _msg => {
         const result = await store.dispatch(actions[action]({...payload}));
         postMessage(id, {result});
       } catch (error) {
+        console.log(error);
         postMessage(id, {result: {error}});
       }
 
       break;
     case 'REHYDRATE_STATE':
-      const state = store.getState();
-      postMessage(id, state);
+      persistStore(store, {}, () => {
+        const state = store.getState();
+        postMessage(id, state);
+      });
+
       break;
   }
   console.log('onInternalMessage', {id, type, data});

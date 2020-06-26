@@ -4,6 +4,7 @@ import {updateMnemonic} from './wallet/actions';
 import {updatePage} from './navigation/actions';
 import {updateNetwork} from './network/actions';
 import {getMnemonic} from './encrypted/actions';
+import {updateUnusedAddress} from './addresses/actions';
 
 const actions = {
   updateAnimating,
@@ -13,6 +14,7 @@ const actions = {
   updatePage,
   updateNetwork,
   getMnemonic,
+  updateUnusedAddress,
 };
 
 export default actions;

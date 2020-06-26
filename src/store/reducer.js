@@ -7,6 +7,7 @@ import network from './network/reducers';
 import animating from './animating/reducers';
 import initialized from './initialized/reducers';
 import loading from './loading/reducers';
+import addresses from './addresses/reducers';
 
 export default function createRootReducer() {
   return combineReducers({
@@ -18,6 +19,7 @@ export default function createRootReducer() {
     animating,
     initialized,
     loading,
+    addresses,
   });
 }
 

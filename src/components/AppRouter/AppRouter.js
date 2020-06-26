@@ -7,11 +7,15 @@ import {animate} from '../../style/animation';
 import useDidMountEffect from '../../hooks/useDidMountEffect';
 import Home from '../../pages/Home';
 import {updateAnimating} from '../../store/animating/actions';
+import Asset from '../../pages/Asset';
+import Deposit from '../../pages/Deposit';
 
 const PAGES = {
   ONBOARDING: Onboarding,
   SEED_PHRASE: SeedPhrase,
   HOME: Home,
+  ASSET: Asset,
+  DEPOSIT: Deposit,
 };
 
 const AppRouter = () => {
@@ -25,8 +29,9 @@ const AppRouter = () => {
   });
 
   const page = useSelector(({navigation}) => navigation.page);
+  const pageProps = useSelector(({navigation}) => navigation.pageProps);
 
-  return PAGES[page]();
+  return PAGES[page]({...pageProps});
 };
 
 export default AppRouter;

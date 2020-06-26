@@ -18,6 +18,9 @@ const sendToBackground = ({dispatch, getState}) => next => action => {
 
     bgEmitter.once(id, ({result}) => {
       console.log('RESULT FROM BG', result);
+      if (result.error) {
+        return reject(new Error(result.error));
+      }
       if (Array.isArray(result)) {
         resolve(result.map(r => next(r)));
       } else {

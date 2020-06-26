@@ -24,7 +24,10 @@ const SeedPhraseBottomContainer = () => {
   const mnemonic = useSelector(({wallet}) => wallet.mnemonic);
 
   const handleContinue = () => {
-    dispatch({action: 'updatePage', payload: {page: 'HOME'}});
+    dispatch({
+      action: 'updatePage',
+      payload: {page: 'HOME', pageProps: {firstLoad: true}},
+    });
   };
 
   const handleBack = () => {
@@ -35,13 +38,7 @@ const SeedPhraseBottomContainer = () => {
     <BottomContainer>
       <SeedPhraseTable mnemonic={mnemonic} />
       <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-        <Button
-          appearance="outline"
-          style={{marginTop: 8, flex: 0.45}}
-          onPress={handleBack}>
-          Back
-        </Button>
-        <Button style={{marginTop: 8, flex: 0.45}} onPress={handleContinue}>
+        <Button style={{marginTop: 8, flex: 1}} onPress={handleContinue}>
           Continue
         </Button>
       </View>

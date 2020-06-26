@@ -19,12 +19,18 @@ export function getMnemonic() {
       // await Keychain.resetGenericPassword();
 
       if (savedMnemonic) {
-        return dispatch(updateMnemonic(savedMnemonic.password));
+        return [
+          dispatch(updateMnemonic(savedMnemonic.password)),
+          dispatch({type: 'UPDATE_ENCRYPTED_WALLET', encryptedWallet: true}),
+        ];
       } else {
         const mnemonic = generateMnemonic();
         await Keychain.setGenericPassword('mnemonic', mnemonic, AUTH_OPTIONS);
 
-        return dispatch(updateMnemonic(mnemonic));
+        return [
+          dispatch(updateMnemonic(mnemonic)),
+          dispatch({type: 'UPDATE_ENCRYPTED_WALLET', encryptedWallet: true}),
+        ];
       }
     } catch (e) {
       console.log(e);

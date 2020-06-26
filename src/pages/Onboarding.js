@@ -1,7 +1,7 @@
 import {Button, Text} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import {View} from 'react-native';
-import {useDispatch} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {getMnemonic} from '../store/encrypted/actions';
 import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
@@ -13,12 +13,20 @@ const OnboardingBottomContainer = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
+  const hasEncryptedWallet = useSelector(
+    ({encrypted}) => encrypted.encryptedWallet,
+  );
+
   const handlePress = async () => {
     setLoading(true);
 
     await dispatch({action: 'getMnemonic'})
       .then(() => {
-        dispatch({action: 'updatePage', payload: {page: 'SEED_PHRASE'}});
+        if (hasEncryptedWallet) {
+          dispatch({action: 'updatePage', payload: {page: 'HOME'}});
+        } else {
+          dispatch({action: 'updatePage', payload: {page: 'SEED_PHRASE'}});
+        }
       })
       .catch(e => {
         console.warn('Failed');

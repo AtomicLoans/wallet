@@ -13,6 +13,7 @@ import {updateBalances} from '../store/balances/actions';
 import useMount from '../hooks/useMount';
 import {updateLoading} from '../store/loading/actions';
 import {animate} from '../style/animation';
+import {NetworkAssets} from '../chain/client';
 
 const HomeTopContainer = () => {
   const loading = useSelector(state => state.loading);
@@ -23,7 +24,10 @@ const HomeTopContainer = () => {
     <TopContainer>
       <View>
         {loading ? (
-          <Spinner />
+          <>
+            <Text style={commonStyles.mainTitle}>Hold on tight!</Text>
+            <Text category="label">Updating balances...</Text>
+          </>
         ) : (
           <Text style={commonStyles.mainTitle}>Welcome!</Text>
         )}
@@ -32,54 +36,56 @@ const HomeTopContainer = () => {
   );
 };
 
-const HomeBottomContainer = () => {
+const HomeBottomContainer = ({firstLoad}) => {
   const dispatch = useDispatch();
   const getters = useGetters();
 
-  const balance = useSelector(state => state.balances.ETH);
   const loading = useSelector(state => state.loading);
+  const network = useSelector(state => state.network);
 
   const [updated, setUpdated] = useState(false);
 
-  const handlePress = () => {
-    dispatch({action: 'updatePage', payload: {page: 'ONBOARDING'}});
+  const handlePress = asset => {
+    dispatch({
+      action: 'updatePage',
+      payload: {page: 'ASSET', pageProps: {asset}},
+    });
   };
 
   useEffect(() => {
     if (!updated) {
       (async () => {
-        dispatch(updateLoading(true));
+        if (firstLoad) dispatch(updateLoading(true));
         console.log('Dispatching update balances');
 
         await dispatch({action: 'updateBalances'});
-        dispatch(updateLoading(false));
+        if (firstLoad) dispatch(updateLoading(false));
       })();
     }
   }, [dispatch, updated]);
 
   return (
     <BottomContainer>
-      <AssetButton />
-      <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-        <Button
-          appearance="outline"
-          style={{marginTop: 8, flex: 0.45}}
-          onPress={handlePress}>
-          Back {balance}
-        </Button>
-        <Button style={{marginTop: 8, flex: 0.45}} onPress={handlePress}>
-          Continue
-        </Button>
-      </View>
+      {NetworkAssets[network].map(asset => (
+        <AssetButton
+          loading={loading}
+          key={asset}
+          style={{marginVertical: 6}}
+          asset={asset}
+          onPress={() => {
+            handlePress(asset);
+          }}
+        />
+      ))}
     </BottomContainer>
   );
 };
 
-const Home = () => {
+const Home = props => {
   return (
     <AppLayout>
       <HomeTopContainer />
-      <HomeBottomContainer />
+      <HomeBottomContainer {...props} />
     </AppLayout>
   );
 };

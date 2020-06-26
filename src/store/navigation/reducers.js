@@ -4,10 +4,11 @@ const initialState = {
   page: 'ONBOARDING',
 };
 
-function updatePage(state, action) {
+function updatePage(state, {page, pageProps}) {
   return {
     ...state,
-    page: action.page,
+    page,
+    pageProps,
   };
 }
 
