@@ -1,6 +1,6 @@
 import {Button, Text} from '@ui-kitten/components';
-import React, {useEffect} from 'react';
-import {View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, InteractionManager} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
@@ -10,6 +10,7 @@ import commonStyles from '../style/common';
 import AssetButton from '../components/AssetButton';
 import useGetters from '../hooks/useGetters';
 import {updateBalances} from '../store/balances/actions';
+import useMount from '../hooks/useMount';
 
 const HomeTopContainer = () => {
   return (
@@ -26,15 +27,19 @@ const HomeBottomContainer = () => {
   const getters = useGetters();
 
   const balance = useSelector(state => state.balances.ETH);
+  const animating = useSelector(state => state.animating);
+  const [updated, setUpdated] = useState(false);
 
   const handlePress = () => {
     dispatch(updatePage('ONBOARDING'));
   };
 
   useEffect(() => {
-    console.log('updating balance');
-    dispatch(updateBalances()).then(s => console.log(s));
-  }, [dispatch]);
+    if (!animating && !updated) {
+      dispatch(updateBalances());
+      setUpdated(true);
+    }
+  }, [dispatch, animating, updated]);
 
   return (
     <BottomContainer>

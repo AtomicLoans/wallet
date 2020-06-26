@@ -13,5 +13,7 @@ const CONFIG = {
 };
 
 export function animate() {
-  LayoutAnimation.configureNext(CONFIG);
+  return new Promise(resolve => {
+    LayoutAnimation.configureNext(CONFIG, resolve);
+  });
 }
