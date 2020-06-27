@@ -49,17 +49,17 @@ const HomeBottomContainer = ({firstLoad}) => {
     dispatch(updatePage({page: 'ASSET', pageProps: {asset}}));
   };
 
-  useEffect(() => {
-    if (!updated) {
-      (async () => {
-        if (firstLoad) dispatch(updateLoading(true));
-        console.log('Dispatching update balances');
+  // useEffect(() => {
+  //   if (!updated) {
+  //     (async () => {
+  //       if (firstLoad) dispatch(updateLoading(true));
+  //       console.log('Dispatching update balances');
 
-        await dispatch({action: 'updateBalances'});
-        if (firstLoad) dispatch(updateLoading(false));
-      })();
-    }
-  }, [dispatch, updated]);
+  //       await dispatch({action: 'updateBalances'});
+  //       if (firstLoad) dispatch(updateLoading(false));
+  //     })();
+  //   }
+  // }, [dispatch, updated, firstLoad]);
 
   return (
     <BottomContainer>

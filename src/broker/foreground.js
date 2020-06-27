@@ -4,13 +4,24 @@ import EventEmitter from 'events';
 const thread = new Thread('background.js');
 const bgEmitter = new EventEmitter();
 
-thread.onmessage = msg => {
-  const {id, payload} = JSON.parse(msg);
-  bgEmitter.emit(id, payload);
-};
-
 const postMessage = message => {
   thread.postMessage(JSON.stringify(message));
+};
+
+thread.onmessage = msg => {
+  const {id, type, payload} = JSON.parse(msg);
+  switch (type) {
+    case 'ACTION_RESPONSE':
+      bgEmitter.emit(id, payload);
+      break;
+
+    case 'REHYDRATE_STATE':
+      bgEmitter.emit(id, payload);
+      break;
+
+    case 'REDUCE':
+      bgEmitter.emit('REDUCE', payload);
+  }
 };
 
 export {bgEmitter, postMessage};

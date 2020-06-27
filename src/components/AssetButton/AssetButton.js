@@ -24,7 +24,7 @@ const AssetButton = ({asset, style, loading, ...props}) => {
         <View style={{flexDirection: 'row', alignItems: 'center'}}>
           <AssetIcon asset={asset} />
           <View style={{marginLeft: 16}}>
-            <Text category="h4">{getCoinName(asset)}</Text>
+            <Text category="h5">{getCoinName(asset)}</Text>
           </View>
         </View>
         <View>

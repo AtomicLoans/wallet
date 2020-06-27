@@ -18,15 +18,16 @@ const store = createStore((state, action) => {
   return {...action.newStore, initialized: true};
 }, applyMiddleware(sendToBackground));
 
-// store.dispatch('test');
 const rehydrateStore = () => {
   const id = `${Date.now()}.${Math.random()}`;
 
   bgEmitter.once(id, newStore => {
     store.dispatch({type: 'REHYDRATE', newStore}).then(() => {
-      console.log('CHANGINg REDUCER');
-      console.log(store.getState());
       store.replaceReducer(createRootReducer());
+
+      bgEmitter.on('REDUCE', action => {
+        store.dispatch(action);
+      });
     });
   });
 
@@ -40,8 +41,3 @@ rehydrateStore();
 
 export {store};
 store.subscribe(() => console.log('dispatched', store.getState()));
-// setTimeout(() => {
-//   console.log('DISPATCHING');
-//   store.dispatch({type: 'LOL'});
-// }, 5000);
-// export {store, persistor};

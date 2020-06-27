@@ -124,7 +124,7 @@ const shouldInjectWeb3 = asset => asset === 'ETH' || ERC20[asset];
 const cachedWeb3Instances = {};
 
 const createClient = (network, mnemonic) => {
-  console.log('creating client');
+  console.log('Creating client');
   const isTestnet = network === 'testnet';
 
   const NetworkArgs = {

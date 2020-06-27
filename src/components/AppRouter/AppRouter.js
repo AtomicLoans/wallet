@@ -24,7 +24,7 @@ const AppRouter = () => {
   useDidMountEffect(() => {
     animate().then(() => {
       console.log('FINISHED');
-      dispatch(updateAnimating(false));
+      // dispatch(updateAnimating(false));
     });
   });
 

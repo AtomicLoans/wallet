@@ -1,4 +1,5 @@
 import {bgEmitter, postMessage} from '../broker/foreground';
+import {batch} from 'react-redux';
 
 const sendToBackground = ({dispatch, getState}) => next => action => {
   const {initialized} = getState();
@@ -21,11 +22,7 @@ const sendToBackground = ({dispatch, getState}) => next => action => {
       if (result.error) {
         return reject(new Error(result.error));
       }
-      if (Array.isArray(result)) {
-        resolve(result.map(r => next(r)));
-      } else {
-        resolve(next(result));
-      }
+      resolve(result);
     });
 
     postMessage({
@@ -35,5 +32,15 @@ const sendToBackground = ({dispatch, getState}) => next => action => {
     });
   });
 };
+
+function flatDeep(arr, d = 1) {
+  return d > 0
+    ? arr.reduce(
+        (acc, val) =>
+          acc.concat(Array.isArray(val) ? flatDeep(val, d - 1) : val),
+        [],
+      )
+    : arr.slice();
+}
 
 export default sendToBackground;

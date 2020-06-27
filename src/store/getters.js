@@ -3,7 +3,7 @@ const clientCache = {};
 
 export default state => ({
   client(network, asset) {
-    const cacheKey = `${network}-${asset}`;
+    const cacheKey = `${network}`;
     const cachedClient = clientCache[cacheKey];
 
     if (cachedClient) return clientCache[cacheKey][asset];

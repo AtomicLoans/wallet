@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 
 import createRootReducer from './reducer';
 import thunkWithGetters from '../middlewares/thunkWithGetters';
+import sendToForeground from '../middlewares/sendToForeground';
 
 const persistConfig = {
   key: 'root',
@@ -14,7 +15,10 @@ const persistConfig = {
 const rootReducer = createRootReducer();
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
-const store = createStore(persistedReducer, applyMiddleware(thunkWithGetters));
+const store = createStore(
+  persistedReducer,
+  applyMiddleware(sendToForeground, thunkWithGetters),
+);
 
 export {store};
 // store.subscribe(() => console.log('dispatched', store.getState()));

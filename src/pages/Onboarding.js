@@ -20,7 +20,7 @@ const OnboardingBottomContainer = () => {
   const handlePress = async () => {
     setLoading(true);
 
-    await dispatch({action: 'getMnemonic'})
+    await dispatch({action: 'unlockWallet'})
       .then(() => {
         if (hasEncryptedWallet) {
           dispatch(updatePage({page: 'HOME', pageProps: {firstLoad: true}}));
