@@ -1,15 +1,21 @@
 import {getMnemonic} from '../encrypted/actions';
 import {updateBalances} from '../balances/actions';
 
+export function initWallet() {
+  return function(dispatch, getState, getters) {
+    const {network} = getState();
+
+    getters.client(network, 'BTC');
+  };
+}
+
 export function unlockWallet() {
   return async function(dispatch, getState, getters) {
     const {network} = getState();
-    const loadMnemonic = dispatch(getMnemonic());
+    const loadMnemonic = await dispatch(getMnemonic());
+    dispatch(initWallet());
 
-    getters.client(network, 'BTC');
-
-    const updatedBalances = dispatch(updateBalances());
-    return [loadMnemonic, updatedBalances];
+    return [loadMnemonic];
   };
 }
 

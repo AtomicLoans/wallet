@@ -9,6 +9,7 @@ import Home from '../../pages/Home';
 import {updateAnimating} from '../../store/animating/actions';
 import Asset from '../../pages/Asset';
 import Deposit from '../../pages/Deposit';
+import NewLoan from '../../pages/NewLoan';
 
 const PAGES = {
   ONBOARDING: Onboarding,
@@ -16,6 +17,7 @@ const PAGES = {
   HOME: Home,
   ASSET: Asset,
   DEPOSIT: Deposit,
+  NEW_LOAN: NewLoan,
 };
 
 const AppRouter = () => {
@@ -23,7 +25,6 @@ const AppRouter = () => {
 
   useDidMountEffect(() => {
     animate().then(() => {
-      console.log('FINISHED');
       // dispatch(updateAnimating(false));
     });
   });

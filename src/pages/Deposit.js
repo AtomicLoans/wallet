@@ -1,20 +1,15 @@
-import React, {useState, useEffect} from 'react';
-import QRCode from 'qrcode';
-
+import Clipboard from '@react-native-community/clipboard';
 import {Button, Text} from '@ui-kitten/components';
-import {View, StyleSheet} from 'react-native';
+import QRCode from 'qrcode';
+import React, {useEffect, useState} from 'react';
+import {View} from 'react-native';
+import {SvgXml} from 'react-native-svg';
 import {useDispatch, useSelector} from 'react-redux';
-import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
 import {BottomContainer, TopContainer} from '../components/Page';
-import SeedPhraseTable from '../components/SeedPhraseTable';
-import commonStyles from '../style/common';
-import {updateAnimating} from '../store/animating/actions';
-import AssetIcon from '../components/AssetIcon';
-import {prettyBalance, formatAddress} from '../utils/coinFormatter';
 import {updateLoading} from '../store/loading/actions';
-import {SvgXml} from 'react-native-svg';
-import Clipboard from '@react-native-community/clipboard';
+import {updatePage} from '../store/navigation/actions';
+import {formatAddress} from '../utils/coinFormatter';
 
 function getChainName(asset) {
   const map = {
@@ -27,12 +22,7 @@ function getChainName(asset) {
 }
 
 const DepositTopContainer = ({asset}) => {
-  const balance = useSelector(({balances}) => balances[asset]);
-
   const dispatch = useDispatch();
-
-  const loading = useSelector(state => state.loading);
-  const network = useSelector(state => state.network);
 
   const [qrcode, setQrcode] = useState('');
 
@@ -40,19 +30,15 @@ const DepositTopContainer = ({asset}) => {
     ({addresses}) => addresses[asset] && addresses[asset]._address,
   );
 
-  const [updated, setUpdated] = useState(false);
-
   useEffect(() => {
-    if (!updated) {
-      (async () => {
-        dispatch(updateLoading(true));
-        console.log('Dispatching update balances');
+    (async () => {
+      dispatch(updateLoading(true));
+      console.log('Dispatching update balances');
 
-        await dispatch({action: 'updateUnusedAddress', payload: {asset}});
-        dispatch(updateLoading(false));
-      })();
-    }
-  }, [updated, dispatch, asset]);
+      await dispatch({action: 'updateUnusedAddress', payload: {asset}});
+      dispatch(updateLoading(false));
+    })();
+  }, [dispatch, asset]);
 
   useEffect(() => {
     if (!address) return;
@@ -79,9 +65,6 @@ const DepositTopContainer = ({asset}) => {
           alignItems: 'center',
           flexDirection: 'row',
           paddingHorizontal: 40,
-          // width: 200,
-
-          // backgroundColor: 'blue',
         }}>
         {qrcode ? (
           <SvgXml xml={qrcode} width="300" height="300" />

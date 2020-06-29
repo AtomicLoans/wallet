@@ -18,12 +18,18 @@ self.onmessage = async _msg => {
   switch (type) {
     case 'ACTION_REQUEST':
       const {action, payload} = data;
+      console.log('BG ACTION', action);
+      console.log(payload);
       try {
         const result =
           (await store.dispatch(actions[action]({...payload}))) || {};
         postMessage({id, type: 'ACTION_RESPONSE', payload: {result}});
       } catch (error) {
-        postMessage({id, type: 'ACTION_RESPONSE', payload: {result: {error}}});
+        postMessage({
+          id,
+          type: 'ACTION_RESPONSE',
+          payload: {result: {error: error.message}},
+        });
       }
       break;
 

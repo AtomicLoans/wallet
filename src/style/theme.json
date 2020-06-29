@@ -84,5 +84,6 @@
   "color-basic-800": "#161A1F",
   "color-basic-900": "#060B16",
   "color-basic-1000": "#1F1F1F",
-  "color-basic-1100": "#141414"
+  "color-basic-1100": "#141414",
+  "text-hint-color": "#FFFFFF"
 }

@@ -70,7 +70,9 @@ const AssetBottomContainer = ({asset}) => {
           appearance="outline"
           style={styles.actionButton}
           size="small"
-          onPress={handleBack}>
+          onPress={() =>
+            dispatch(updatePage({page: 'NEW_LOAN', pageProps: {asset}}))
+          }>
           Loan
         </Button>
       </View>

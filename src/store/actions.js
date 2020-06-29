@@ -5,6 +5,8 @@ import {updatePage} from './navigation/actions';
 import {updateNetwork} from './network/actions';
 import {getMnemonic} from './encrypted/actions';
 import {updateUnusedAddress} from './addresses/actions';
+import {createLoan, updateHistory} from './history/actions';
+import {getMatchedFunds} from './loan/actions';
 
 const actions = {
   updateAnimating,
@@ -16,6 +18,9 @@ const actions = {
   getMnemonic,
   updateUnusedAddress,
   unlockWallet,
+  getMatchedFunds,
+  createLoan,
+  updateHistory,
 };
 
 export default actions;

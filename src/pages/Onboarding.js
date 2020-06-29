@@ -2,7 +2,6 @@ import {Button, Text} from '@ui-kitten/components';
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
-import {getMnemonic} from '../store/encrypted/actions';
 import {updatePage} from '../store/navigation/actions';
 import AppLayout from '../components/AppLayout/AppLayout';
 import BitcoinLock from '../components/BitcoinLock/BitcoinLock';
@@ -29,6 +28,7 @@ const OnboardingBottomContainer = () => {
         }
       })
       .catch(e => {
+        console.log('FAILED!!', JSON.stringify(e));
         console.warn('Failed');
         setLoading(false);
       });
@@ -81,31 +81,3 @@ const Onboarding = () => {
 };
 
 export default Onboarding;
-
-// <LinearGradient colors={['#21282F', '#522166']} style={styles.root}>
-// <StatusBar barStyle="light-content" />
-// <SafeAreaView style={styles.safeAreaView}>
-//   <View style={styles.safeArea}>
-//     <View style={styles.logoContainer}>
-//       <Logo style={styles.logo} />
-//     </View>
-
-//     <View style={styles.mainContainer}>
-//       {height === 200 ? (
-//         <>
-
-//         </>
-//       ) : (
-//         <>
-//           <Text style={styles.mainTitle}>
-//             Backup your seed phrase:
-//           </Text>
-//           <Text>{mnemonic}</Text>
-//         </>
-//       )}
-//     </View>
-//   </View>
-// </SafeAreaView>
-// <View style={{...styles.bottomContainer, height}}>
-// </View>
-// </LinearGradient>
