@@ -13,8 +13,7 @@ export function unlockWallet() {
   return async function(dispatch, getState, getters) {
     const {network} = getState();
     const loadMnemonic = await dispatch(getMnemonic());
-    dispatch(initWallet());
-
+    const updatedBalances = dispatch(updateBalances());
     return [loadMnemonic];
   };
 }

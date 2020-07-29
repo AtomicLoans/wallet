@@ -34,25 +34,25 @@ const rpc = {
     ],
   },
   ETH: {
-    mainnet: ['https://mainnet.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
-    rinkeby: ['https://rinkeby.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
-    kovan: ['https://kovan.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
+    mainnet: ['https://mainnet.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
+    rinkeby: ['https://rinkeby.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
+    kovan: ['https://kovan.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
   },
   DAI: {
-    mainnet: ['https://mainnet.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
-    rinkeby: ['https://rinkeby.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
-    kovan: ['https://kovan.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
+    mainnet: ['https://mainnet.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
+    rinkeby: ['https://rinkeby.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
+    kovan: ['https://kovan.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
   },
   USDC: {
-    mainnet: ['https://mainnet.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
-    kovan: ['https://kovan.infura.io/v3/53bcde36e0404a6da87b71e780783f79'],
+    mainnet: ['https://mainnet.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
+    kovan: ['https://kovan.infura.io/v3/57503107ca1c4ad19d0bf22f85c601ff'],
   },
 };
 
 const api = {
   BTC: {
-    bitcoin: ['https://blockstream.info/api', 2],
-    bitcoin_testnet: ['https://blockstream.info/testnet/api', 2],
+    bitcoin: ['https://btc.atomic.loans/api', 2],
+    bitcoin_testnet: ['https://btc.atomic.loans/testnet/api', 2],
   },
 };
 
