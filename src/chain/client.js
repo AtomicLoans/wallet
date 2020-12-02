@@ -24,6 +24,47 @@ import EthereumNetworks from '@liquality/ethereum-networks';
 import Web3 from 'web3';
 import {generateAddressesFromSeed} from '../utils';
 
+import cfddlcjs from '../cfd/cfddlcjs'
+// import cfdjs from '../cfd/cfdjs'
+
+const keyPair = {
+  privkey: '99c6b3dcd0849e75a80d97e04c40e8b460511f588e50e34690ddded97331a84f',
+  pubkey: '03572e606daa1627b1fadaeaee9e9abe851775cf3f38af22173fa9fa503b260254'
+}
+
+cfddlcjs.addInitializedListener(async () => {
+  console.log('CFDDLCJS - LOADED')
+
+  const rValue = await cfddlcjs.getCfddlc().GetSchnorrPublicNonce({
+    kValue: keyPair.privkey,
+  });
+
+  console.log('Schnoor Public Nonce', rValue);
+})
+
+
+// cfdjs.addInitializedListener(async () => {
+//   console.log('CFDJS - LOADED')
+//   cfddlcjs.addInitializedListener(async () => {
+//     console.log('CFDDLCJS - LOADED')
+
+//     const keyPair = await cfdjs.getCfd().CreateKeyPair({
+//       wif: false,
+//     });
+  
+//     console.log(keyPair)
+
+//     const rValue = await cfddlcjs.getCfddlc().GetSchnorrPublicNonce({
+//       kValue: keyPair.privkey,
+//     });
+  
+//     console.log('Schnoor Public Nonce', rValue);
+  
+//   })
+
+// })
+
+
 const rpc = {
   BTC: {
     bitcoin: ['https://btc.atomicloans.io/mainnet/', 'atomicloans', 'local321'],
