@@ -21,6 +21,153 @@ import EthereumErc20ScraperSwapFindProvider from '@liquality/ethereum-erc20-scra
 import BitcoinNetworks from '@liquality/bitcoin-networks';
 import EthereumNetworks from '@liquality/ethereum-networks';
 
+// import fs from 'react-native-fs';
+// import * as RNFS from 'react-native-fs';
+
+// const fs = require('fs');
+
+// import * as fs from 'fs'
+
+// const FinanceClient = require('../../node_modules/@atomicfinance/client/dist')
+// const BitcoinCfdProvider = require('../../node_modules/@atomicfinance/bitcoin-cfd-provider/dist')
+// const BitcoinDlcProvider = require('../../node_modules/@atomicfinance/bitcoin-dlc-provider/dist')
+// const BitcoinWalletProvider = require('../../node_modules/@atomicfinance/bitcoin-wallet-provider/dist')
+
+// import FinanceClient from '../../node_modules/@atomicfinance/client/dist';
+// import BitcoinCfdProvider from '../../node_modules/@atomicfinance/bitcoin-cfd-provider/dist';
+// import BitcoinDlcProvider from '../../node_modules/@atomicfinance/bitcoin-dlc-provider/dist';
+// import BitcoinWalletProvider from '../../node_modules/@atomicfinance/bitcoin-wallet-provider/dist';
+
+import FinanceClient from '@atomicfinance/client/dist/client';
+// import BitcoinCfdProvider from '@atomicfinance/bitcoin-cfd-provider/dist/bitcoin-cfd-provider';
+// import BitcoinDlcProvider from '@atomicfinance/bitcoin-dlc-provider/dist/bitcoin-dlc-provider';
+import BitcoinWalletProvider from '@atomicfinance/bitcoin-wallet-provider/dist/bitcoin-wallet-provider';
+
+import WebAssembly from "webassemblyjs";
+
+import { bip39Generate, bip39ToSeed, waitReady } from 'polkadot/wasm-crypto'
+
+// function get(url) {
+//   console.log('url', url)
+//   return new Promise((accept, reject) => {
+//       var req = new XMLHttpRequest();
+//       req.open("GET", url, true);
+//       req.responseType = "arraybuffer";
+
+//       req.onload = function(event) {
+//           var resp = req.response;
+//           console.log('resp', resp)
+//           if(resp) {
+//               accept(resp);
+//           }
+//       };
+
+//       req.send(null);
+//   });
+// }
+
+// import * as example from './cfdjs_wasm.wasm';
+
+console.log('test1')
+
+(async () => {
+  await waitReady();
+
+  const phrase = bip39Generate(12);
+ 
+  // get ed25519 seed from phrase
+  const seed = bip39ToSeed(phrase, '');
+ 
+  // display
+  console.log('phrase:', phrase);
+  console.log('seed:', u8aToHex(seed));
+
+  // console.log(`fs.MainBundlePath.replace('wallet.app/', '')`, fs.MainBundlePath.replace('/wallet.app', ''))
+
+  // RNFS.readDir(`${fs.MainBundlePath}`).then(files => {
+  //   console.log('files', files)
+  //   for (let i = 0; i < files.length; i++) {
+  //     const file = files[i]
+  //     console.log('file', file)
+  //     const tester = file.isDirectory()
+  //     console.log('isDirectory', tester)
+  //   }
+  // })
+  // .catch(err => {
+  //   console.log(err.message, err.code);
+  // });
+
+  // console.log('fs.MainBundlePath', fs.MainBundlePath)
+  // console.log('test1')
+  // try {
+  //   const buffer = fs.readFileSync(`${fs.MainBundlePath}/cfdjs_wasm.wasm`);
+  //   console.log('buffer', buffer)
+
+  //   // const wasm = await fetch(`${fs.MainBundlePath}/cfdjs_wasm.wasm`);
+  //   console.log('test5')
+  //   // console.log('wasm', wasm)
+  //   // console.log('wasm._bodyInit._data.__collector', wasm._bodyBlob._data.__collector)
+
+  //   // const response = await fetch(`${fs.MainBundlePath}/cfdjs_wasm.wasm`);
+  //   // const buffer = await response.arrayBuffer();
+
+
+  //   // const response = await fetch(`${fs.MainBundlePath}/cfdjs_wasm.wasm`)
+  //   // const module = await WebAssembly.compileStreaming(response)
+
+
+  //   // const buffer = await get(`${fs.MainBundlePath}/cfdjs_wasm.wasm`)
+  //   // console.log('buffer', buffer)
+  //   // const module = await WebAssembly.compile(buffer);
+  //   // const instance = new WebAssembly.Instance(module);
+
+  //   // console.log('instance', instance)
+
+  //   // const response = await fetch('fibonacci.wasm');
+  //   // const buffer = await response.arrayBuffer();
+  //   // const module = await WebAssembly.compile(buffer);
+  //   // const instance = new WebAssembly.Instance(module);
+
+
+  //   // const mod = await WebAssembly.instantiate(fetch(`${fs.MainBundlePath}/cfdjs_wasm.wasm`)).then(mod => console.log('modding', mod));
+  // } catch(e) {
+  //   console.log('e', e)
+  // }
+  
+  console.log('test2')
+  // console.log('wasm', wasm)
+  // console.log('test0')
+  // const example = await import('./cfdjs_wasm.wasm')
+  // console.log('example', example)
+  // console.log('test1')
+  // try {
+  //   const mod = await WebAssembly.instantiateStreaming(wasm).then(mod => console.log('modding', mod));
+  // } catch(e) {
+  //   console.log('e', e)
+  // }
+  
+
+  // console.log('test0')
+  // let response
+  // try {
+  //   response = await fetch('cfdjs_wasm.wasm');
+  // } catch(e) {
+  //   console.log('test failed ', e)
+  // }
+  // console.log('test1')
+  // const buffer = await response.arrayBuffer();
+  // const module = await WebAssembly.compile(buffer);
+  // const instance = new WebAssembly.Instance(module);
+
+  // console.log('test3')
+  // console.log('instance', instance)
+
+  // console.log('instance.exports', instance.exports)
+
+  // const result = instance.exports.fibonacci(42);
+  // console.log(result);
+})();
+
 import Web3 from 'web3';
 import {generateAddressesFromSeed} from '../utils';
 
@@ -208,6 +355,20 @@ const createClient = (network, mnemonic) => {
           new CollateralSwapProviders[asset](...CollateralSwapArgs[asset]),
         );
       }
+
+      // const bitcoinFinance = new FinanceClient(client);
+
+      // client.finance = bitcoinFinance;
+
+      // const cfdProvider = new BitcoinCfdProvider(network);
+      // const dlcProvider = new BitcoinDlcProvider(network);
+      // const walletProvider = new BitcoinWalletProvider(
+      //   network
+      // );
+
+      // client.finance.addProvider(cfdProvider);
+      // client.finance.addProvider(dlcProvider);
+      // client.finance.addProvider(walletProvider);
 
       if (shouldInjectWeb3(asset)) {
         const cachedWeb3 = cachedWeb3Instances[network];

@@ -7,6 +7,10 @@
 
 const {getDefaultConfig} = require('metro-config');
 
+const fs = require('fs')
+const getDevPaths = require('get-dev-paths')
+
+const projectRoot = __dirname
 module.exports = (async () => {
   const {
     resolver: {sourceExts, assetExts},
@@ -25,5 +29,8 @@ module.exports = (async () => {
       assetExts: assetExts.filter(ext => ext !== 'svg'),
       sourceExts: [...sourceExts, 'svg'],
     },
+    watchFolders: Array.from(new Set(
+      getDevPaths(projectRoot).map($ => fs.realpathSync($))
+    )),
   };
 })();

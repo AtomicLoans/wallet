@@ -23,6 +23,11 @@
 //}
 #endif
 
+// #if RCT_DEV
+// - (BOOL)bridge:(RCTBridge *)bridge didNotFindModule:(NSString *)moduleName {
+//   return YES;
+// }
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -53,6 +58,7 @@
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+
 }
 
 @end

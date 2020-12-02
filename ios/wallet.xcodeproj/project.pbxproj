@@ -16,6 +16,7 @@
 		2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		2D02E4BF1E0B4AB3006451C7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		2DCD954D1E0B4F2C00145EB5 /* walletTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* walletTests.m */; };
+		3A3F5D0725772F1B0090A87E /* cfdjs_wasm.wasm in Resources */ = {isa = PBXBuildFile; fileRef = 3A3F5D0625772F1B0090A87E /* cfdjs_wasm.wasm */; };
 		4BC754E14CB235E59883F4BC /* libPods-wallet-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 86EC175DFE7E47E296E662B2 /* libPods-wallet-tvOS.a */; };
 		849F1CDFB85420EBCF7F1180 /* libPods-wallet-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3375A93778D00048F01B6EBC /* libPods-wallet-tvOSTests.a */; };
 		A335E91C9A8511AE522E05BE /* libPods-wallet-walletTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A31D728B48650EF9C330A4F7 /* libPods-wallet-walletTests.a */; };
@@ -59,6 +60,7 @@
 		2D02E4901E0B4A5D006451C7 /* wallet-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "wallet-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3375A93778D00048F01B6EBC /* libPods-wallet-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wallet-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		360DF3B8A511856EC8EF2311 /* Pods-wallet-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-wallet-tvOS.release.xcconfig"; path = "Target Support Files/Pods-wallet-tvOS/Pods-wallet-tvOS.release.xcconfig"; sourceTree = "<group>"; };
+		3A3F5D0625772F1B0090A87E /* cfdjs_wasm.wasm */ = {isa = PBXFileReference; lastKnownFileType = file; name = cfdjs_wasm.wasm; path = wallet/cfdjs_wasm.wasm; sourceTree = "<group>"; };
 		86EC175DFE7E47E296E662B2 /* libPods-wallet-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wallet-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A31D728B48650EF9C330A4F7 /* libPods-wallet-walletTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-wallet-walletTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0DBDE6724A6034800678F8B /* background.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = background.jsbundle; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				3A3F5D0625772F1B0090A87E /* cfdjs_wasm.wasm */,
 				13B07FAE1A68108700A75B9A /* wallet */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* walletTests */,
@@ -341,6 +344,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A3F5D0725772F1B0090A87E /* cfdjs_wasm.wasm in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B0DBDE6824A6034800678F8B /* background.jsbundle in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
