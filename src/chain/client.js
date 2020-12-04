@@ -42,6 +42,7 @@ const keyPair = {
 //   console.log('Schnoor Public Nonce', rValue);
 // })
 
+console.log(cfdjs.getCfd())
 
 cfdjs.addInitializedListener(async () => {
   console.log('CFDJS - LOADED')
