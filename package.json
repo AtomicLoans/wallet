@@ -10,6 +10,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@atomicfinance/bitcoin-cfd-provider": "/Users/matthewblack/atomicfinance/chainabstractionlayer-finance/packages/bitcoin-cfd-provider",
+    "@atomicfinance/bitcoin-dlc-provider": "/Users/matthewblack/atomicfinance/chainabstractionlayer-finance/packages/bitcoin-dlc-provider",
+    "@atomicfinance/bitcoin-wallet-provider": "/Users/matthewblack/atomicfinance/chainabstractionlayer-finance/packages/bitcoin-wallet-provider",
+    "@atomicfinance/client": "/Users/matthewblack/atomicfinance/chainabstractionlayer-finance/packages/client",
     "@atomicloans/bitcoin-collateral-provider": "^0.4.2",
     "@atomicloans/bitcoin-collateral-swap-provider": "^0.4.2",
     "@atomicloans/loan-client": "^0.4.2",

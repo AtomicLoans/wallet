@@ -24,6 +24,11 @@ import EthereumNetworks from '@liquality/ethereum-networks';
 import Web3 from 'web3';
 import {generateAddressesFromSeed} from '../utils';
 
+import FinanceClient from '@atomicfinance/client'
+import BitcoinCfdProvider from '@atomicfinance/bitcoin-cfd-provider'
+import BitcoinDlcProvider, { Amount } from '@atomicfinance/bitcoin-dlc-provider';
+import BitcoinWalletProvider from '@atomicfinance/bitcoin-wallet-provider'
+
 import cfddlcjs from '../cfd/cfddlcjs'
 import cfdjs from '../cfd/cfdjs'
 
@@ -41,30 +46,6 @@ const keyPair = {
 
 //   console.log('Schnoor Public Nonce', rValue);
 // })
-
-console.log(cfdjs.getCfd())
-
-cfdjs.addInitializedListener(async () => {
-  console.log('CFDJS - LOADED')
-  cfddlcjs.addInitializedListener(async () => {
-    console.log('CFDDLCJS - LOADED')
-
-    const keyPair = await cfdjs.getCfd().CreateKeyPair({
-      wif: false,
-    });
-  
-    console.log(keyPair)
-
-    const rValue = await cfddlcjs.getCfddlc().GetSchnorrPublicNonce({
-      kValue: keyPair.privkey,
-    });
-  
-    console.log('Schnoor Public Nonce', rValue);
-  
-  })
-
-})
-
 
 const rpc = {
   BTC: {
@@ -278,5 +259,119 @@ const createClient = (network, mnemonic) => {
       return acc;
     }, {});
 };
+
+console.log(cfdjs.getCfd())
+
+cfdjs.addInitializedListener(async () => {
+  console.log('CFDJS - LOADED')
+  cfddlcjs.addInitializedListener(async () => {
+    console.log('CFDDLCJS - LOADED')
+
+    const keyPair = await cfdjs.getCfd().CreateKeyPair({
+      wif: false,
+    });
+
+    console.log(keyPair)
+
+    const rValue = await cfddlcjs.getCfddlc().GetSchnorrPublicNonce({
+      kValue: keyPair.privkey,
+    });
+
+    console.log('Schnoor Public Nonce', rValue);
+
+    // ========================================
+
+    try {
+      const network = BitcoinNetworks.bitcoin_testnet
+
+      const bitcoin = new Client();
+      const bitcoinFinance = new FinanceClient(bitcoin);
+
+      bitcoin.finance = bitcoinFinance;
+      bitcoin.addProvider(new BitcoinEsploraApiProvider('https://btc.atomic.loans/testnet/api/'));
+      bitcoin.addProvider(
+        new BitcoinJsWalletProvider(
+          network,
+          'abandon ability able about above absent absorb abstract absurd abuse access accident',
+          'bech32'
+        )
+      );
+
+      const cfdProvider = new BitcoinCfdProvider(network, cfdjs.getCfd());
+      const dlcProvider = new BitcoinDlcProvider(network, cfddlcjs.getCfddlc());
+      const walletProvider = new BitcoinWalletProvider(
+        network
+      );
+
+      bitcoin.finance.addProvider(cfdProvider);
+      bitcoin.finance.addProvider(dlcProvider);
+      bitcoin.finance.addProvider(walletProvider);
+
+      bitcoin.getMethod('getAddresses')(0, 1).then((result) => console.log('address', result))
+
+      console.log('test', bitcoin.finance.getMethod('initializeContractAndOffer'))
+
+      const ESTIMATED_SIZE = 312;
+      const BurnAddress = 'bcrt1qxcjufgh2jarkp2qkx68azh08w9v5gah8u6es8s';
+      const feePerByte = 5
+      const betAmount = 200000
+
+      const outputs = [{ to: BurnAddress, value: (betAmount + ESTIMATED_SIZE * (feePerByte - 1)) }];
+      const inputsForAmount = await bitcoin.getMethod('getInputsForAmount')(
+        outputs,
+        [],
+        1
+      );
+
+      const localCollateral = Amount.FromSatoshis(100000)
+      const remoteCollateral = Amount.FromSatoshis(100000)
+      const feeRate = 5
+      const publishDate = new Date()
+      const ELECTION_REFUND_DATE = new Date()
+
+      const inputDetails = {
+        localCollateral,
+        remoteCollateral,
+        feeRate,
+        maturityTime: new Date(
+          new Date(publishDate).setHours(new Date().getHours() - 3)
+        ),
+        refundLockTime: ELECTION_REFUND_DATE.getTime(),
+        cetCsvDelay: 0,
+      };
+
+      const outcomeDetailWin: OutcomeDetails = {
+        localAmount: Amount.FromSatoshis(localCollateral),
+        remoteAmount: Amount.FromSatoshis(0),
+        message: 'democratic'
+      };
+
+      const outcomeDetailLose: OutcomeDetails = {
+        localAmount: Amount.FromSatoshis(0),
+        remoteAmount: Amount.FromSatoshis(remoteCollateral),
+        message: 'republican'
+      };
+
+      const outcomes: Array<OutcomeDetails> = [outcomeDetailWin, outcomeDetailLose];
+
+      const oracleInfo = {
+        name: 'atomic.finance',
+        publicKey:
+          '03355cd87b61c0740a98509169e135e515d8cd6244e3c58d924f8455f414ef7a4b',
+        rValue:
+          '031f9fefc7c0be9b3cd14671590892ebf01c440034f1b193229bca3275a4217d89',
+      };
+
+      const startingIndex = 0;
+
+      const hasDlc = await bitcoin.finance.getMethod('hasDlc')('test')
+      console.log('hasDlc', hasDlc)
+
+      console.log('SUCCESS')
+    } catch(e) {
+      console.log('e', e)
+    }
+  })
+})
 
 export default createClient;
